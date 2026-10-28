@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KeyQuest — Keyboard Kingdom</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⌨️</text></svg>" />
+</head>
+<body>
+  <div class="bg-blobs" aria-hidden="true">
+    <span class="blob b1"></span>
+    <span class="blob b2"></span>
+    <span class="blob b3"></span>
+  </div>
+
+  <header class="topbar">
+    <button class="brand" id="btn-home" type="button" title="Go to home">
+      <span class="brand-mark" aria-hidden="true">⌨️</span>
+      <span class="brand-text">KeyQuest</span>
+    </button>
+    <div class="player-chip">
+      <button class="name-btn" id="btn-name" type="button" title="Change player name">🦊 <span id="player-name">Captain Keys</span></button>
+      <div class="level-block">
+        <span class="level-label">Lv. <strong id="player-level">1</strong></span>
+        <div class="xp-track" title="Experience points">
+          <div class="xp-fill" id="xp-fill"></div>
+        </div>
+        <span class="xp-text" id="xp-text">0 / 100 XP</span>
+      </div>
+      <span class="star-count" title="Stars earned">⭐ <strong id="star-total">0</strong></span>
+    </div>
+    <div class="top-actions">
+      <button class="icon-btn" id="btn-achievements" type="button" title="Achievements">🏆</button>
+      <button class="icon-btn" id="btn-mute" type="button" title="Mute sounds" aria-pressed="false">🔊</button>
+    </div>
+  </header>
+
+  <main id="app">
+    <!-- HUB -->
+    <section class="screen active" id="screen-hub" aria-label="Home">
+      <div class="hero-banner">
+        <p class="eyebrow">Keyboard Kingdom</p>
+        <h1>Type your way to hero!</h1>
+        <p class="lede">Learn keys, race words, and save the kingdom from King Typo. Built for kids ages 6–12.</p>
+      </div>
+      <div class="mode-grid">
+        <button class="mode-card academy" data-goto="academy" type="button">
+          <span class="mode-emoji">🎓</span>
+          <h2>Typing Academy</h2>
+          <p>Lessons from the home row to full sentences. Unlock each stage as you improve.</p>
+          <span class="mode-meta" id="academy-meta">Lesson 1 ready</span>
+        </button>
+        <button class="mode-card rush" data-goto="rush" type="button">
+          <span class="mode-emoji">⚡</span>
+          <h2>Word Rush</h2>
+          <p>Type falling challenges before time runs out. Combos, lives, and high scores!</p>
+          <span class="mode-meta" id="rush-meta">Best: 0</span>
+        </button>
+        <button class="mode-card adventure" data-goto="adventure" type="button">
+          <span class="mode-emoji">🗺️</span>
+          <h2>Typing Adventure</h2>
+          <p>Explore Starwood Trail. Type to beat foes — then face King Typo!</p>
+          <span class="mode-meta" id="adventure-meta">Stage 1 of 5</span>
+        </button>
+      </div>
+      <div class="howto">
+        <h3>How to play</h3>
+        <ol>
+          <li>Use a real keyboard. The highlighted key is the next letter.</li>
+          <li>Accuracy and speed both earn XP, stars, and trophies.</li>
+          <li>Your progress is saved on this computer.</li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ACADEMY LIST -->
+    <section class="screen" id="screen-academy" aria-label="Typing Academy">
+      <div class="screen-head">
+        <button class="back-btn" data-goto="hub" type="button">← Home</button>
+        <h1>Typing Academy</h1>
+        <p>Start on the home row. Finish a lesson with at least 85% accuracy to unlock the next one.</p>
+      </div>
+      <div class="lesson-grid" id="lesson-grid"></div>
+    </section>
+
+    <!-- ACADEMY PLAY -->
+    <section class="screen" id="screen-academy-play" aria-label="Lesson">
+      <div class="screen-head compact">
+        <button class="back-btn" data-goto="academy" type="button">← Lessons</button>
+        <h1 id="lesson-title">Lesson</h1>
+        <div class="stat-pills">
+          <span>WPM <strong id="ac-wpm">0</strong></span>
+          <span>Accuracy <strong id="ac-acc">100%</strong></span>
+          <span>Progress <strong id="ac-prog">0%</strong></span>
+        </div>
+      </div>
+      <div class="play-card">
+        <p class="prompt-hint" id="ac-hint">Type the highlighted letters</p>
+        <div class="prompt-line" id="ac-prompt" aria-live="polite"></div>
+        <div class="kb-wrap" id="academy-keyboard"></div>
+        <p class="feedback" id="ac-feedback"></p>
+      </div>
+    </section>
+
+    <!-- WORD RUSH -->
+    <section class="screen" id="screen-rush" aria-label="Word Rush">
+      <div class="screen-head compact">
+        <button class="back-btn" data-goto="hub" type="button">← Home</button>
+        <h1>Word Rush</h1>
+        <div class="stat-pills">
+          <span>Score <strong id="rush-score">0</strong></span>
+          <span>Best <strong id="rush-best">0</strong></span>
+          <span>Combo <strong id="rush-combo">x1</strong></span>
+          <span>Lives <strong id="rush-lives">❤️❤️❤️</strong></span>
+        </div>
+      </div>
+      <div class="play-card rush-card">
+        <div class="timer-track"><div class="timer-fill" id="rush-timer"></div></div>
+        <p class="wave-label" id="rush-wave">Wave 1</p>
+        <div class="rush-word" id="rush-word"></div>
+        <p class="feedback" id="rush-feedback">Press any key to start</p>
+        <div class="kb-wrap compact" id="rush-keyboard"></div>
+      </div>
+      <div class="overlay hidden" id="rush-over">
+        <div class="modal">
+          <h2>Game Over!</h2>
+          <p id="rush-over-text"></p>
+          <div class="modal-actions">
+            <button class="btn primary" id="rush-retry" type="button">Play again</button>
+            <button class="btn" data-goto="hub" type="button">Home</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ADVENTURE MAP -->
+    <section class="screen" id="screen-adventure" aria-label="Adventure map">
+      <div class="screen-head">
+        <button class="back-btn" data-goto="hub" type="button">← Home</button>
+        <h1>Starwood Trail</h1>
+        <p>Type to clear the path. Beat every stage, then challenge King Typo in Typo Tower.</p>
+      </div>
+      <div class="trail" id="adventure-trail"></div>
+    </section>
+
+    <!-- ADVENTURE PLAY -->
+    <section class="screen" id="screen-adventure-play" aria-label="Adventure battle">
+      <div class="screen-head compact">
+        <button class="back-btn" data-goto="adventure" type="button">← Map</button>
+        <h1 id="adv-title">Battle</h1>
+        <div class="stat-pills">
+          <span>Hearts <strong id="adv-hearts">❤️❤️❤️</strong></span>
+          <span>WPM <strong id="adv-wpm">0</strong></span>
+          <span>Accuracy <strong id="adv-acc">100%</strong></span>
+        </div>
+      </div>
+      <div class="battle" id="battle-scene">
+        <div class="fighter hero">
+          <div class="sprite" id="hero-sprite">🦊</div>
+          <p>You</p>
+        </div>
+        <div class="vs">VS</div>
+        <div class="fighter foe">
+          <div class="sprite" id="foe-sprite">🟢</div>
+          <p id="foe-name">Foe</p>
+          <div class="hp-track"><div class="hp-fill" id="foe-hp"></div></div>
+        </div>
+      </div>
+      <p class="flavor" id="adv-flavor"></p>
+      <div class="play-card">
+        <div class="prompt-line" id="adv-prompt"></div>
+        <div class="kb-wrap compact" id="adv-keyboard"></div>
+        <p class="feedback" id="adv-feedback"></p>
+      </div>
+      <div class="overlay hidden" id="adv-over">
+        <div class="modal">
+          <h2 id="adv-over-title">Victory!</h2>
+          <p id="adv-over-text"></p>
+          <div class="stars-big" id="adv-over-stars"></div>
+          <div class="modal-actions">
+            <button class="btn primary" id="adv-continue" type="button">Continue</button>
+            <button class="btn" data-goto="adventure" type="button">Map</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="overlay hidden" id="overlay-achievements">
+    <div class="modal wide">
+      <h2>Trophy Shelf</h2>
+      <div class="achieve-grid" id="achieve-grid"></div>
+      <button class="btn primary" id="close-achievements" type="button">Close</button>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <div class="fx-layer" id="fx-layer" aria-hidden="true"></div>
+
+  <script src="js/data.js"></script>
+  <script src="js/core.js"></script>
+  <script src="js/keyboard.js"></script>
+  <script src="js/academy.js"></script>
+  <script src="js/rush.js"></script>
+  <script src="js/adventure.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
