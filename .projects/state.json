@@ -1,0 +1,16 @@
+{
+  "version": 2,
+  "providers": {
+    "render": {
+      "name": "Render"
+    }
+  },
+  "resources": {
+    "KeyQuest": {
+      "livemode": true,
+      "name": "KeyQuest",
+      "providerName": "Render",
+      "serviceId": "static-site"
+    }
+  }
+}
