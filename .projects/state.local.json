@@ -1,0 +1,40 @@
+{
+  "version": 4,
+  "project": {
+    "catalog": "prod",
+    "initializedAt": "2026-10-28T15:04:46.240Z",
+    "merchantDisplayName": null,
+    "merchantId": "acct_1UVY619kJQcx85zs",
+    "projectId": "project_61VewMXiXVScvtYLE16Vew3O99LJ0xA7uC2yKfMS08wa",
+    "projectName": "keyboard-trainer"
+  },
+  "providers": {
+    "render": {
+      "accountRequestId": "facctrq_61VewWd17NRiBq2XZ16Vew3O99LJ0xA7uC2yKfMS0J7Y",
+      "configuration": {},
+      "linkedAt": "2026-10-28T15:15:12.524Z",
+      "providerId": "prvdr_61UVwArXdJpejOfkn5POi",
+      "providerName": "Render",
+      "redirectUrl": null,
+      "requestedAt": "2026-10-28T15:15:12.524Z",
+      "status": "complete"
+    }
+  },
+  "resources": {
+    "KeyQuest": {
+      "configuration": {
+        "name": "KeyQuest",
+        "repo": "https://github.com/homelabnl-alt/KeyQuest"
+      },
+      "createdAt": "2026-10-28T15:15:16.311Z",
+      "lastRevealedAt": "2026-10-28T15:15:16.640Z",
+      "lastStatus": "complete",
+      "livemode": true,
+      "name": "KeyQuest",
+      "providerId": "prvdr_61UVwArXdJpejOfkn5POi",
+      "providerName": "Render",
+      "resourceId": "fres_61VewWfChKStJD1dc16Vew3O99LJ0xA7uC2yKfMS09v6",
+      "serviceId": "static-site"
+    }
+  }
+}
